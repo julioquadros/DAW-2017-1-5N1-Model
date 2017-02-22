@@ -40,8 +40,8 @@ public class TestePersistirCidade {
         boolean exception = false;
         try {
             Cidade c = new Cidade();
-            c.setNome("Passo Fundo");
-            c.setEstado(em.find(Estado.class, 1));
+           // c.setNome("Passo Fundo");
+           // c.setEstado(em.find(Estado.class, 1));       
             em.getTransaction().begin();
             em.persist(c);
             em.getTransaction().commit();

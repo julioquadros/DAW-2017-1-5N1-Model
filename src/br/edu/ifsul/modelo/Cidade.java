@@ -12,6 +12,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.ForeignKey;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+
 
 /**
  *
@@ -27,10 +32,15 @@ public class Cidade implements Serializable {
             allocationSize = 1)
     @GeneratedValue(generator = "seq_cidade", strategy = GenerationType.SEQUENCE)
     private Integer id;
-    @Column(name = "nome", length = 50, nullable = false)
+    @Length(max = 50, message = "O nome não pode ter mais que {max} caracteres")
+    @NotNull(message = "O nome deve ser informado")
+    @NotBlank(message = "O nome não pode ser em branco")
+    @Column(name = "nome", length = 50, nullable = false)    
     private String nome;
+    @NotNull(message = "O estado deve ser informado")
     @ManyToOne
-    @JoinColumn(name = "estado", referencedColumnName = "id")
+    @JoinColumn(name = "estado", referencedColumnName = "id",nullable = false)
+    @ForeignKey(name = "fk_estado_id")
     private Estado estado;
     
     public Cidade(){
