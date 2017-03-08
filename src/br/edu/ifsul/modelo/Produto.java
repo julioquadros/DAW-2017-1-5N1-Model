@@ -61,7 +61,13 @@ public class Produto implements Serializable {
     @JoinColumn(name = "grupo", referencedColumnName = "id", nullable = false)
     @ForeignKey(name = "fk_produto_grupo_id")
     private Grupo grupo;
-
+    @ManyToMany
+    @JoinTable(name = "desejos",
+            joinColumns = 
+            @JoinColumn(name = "produto", referencedColumnName = "id", nullable = false),
+            inverseJoinColumns = 
+            @JoinColumn(name = "pessoa_fisica", referencedColumnName = "id", nullable = false))    
+    private List<PessoaFisica> desejam = new ArrayList<>();
 
     public Produto() {
     }
@@ -145,6 +151,14 @@ public class Produto implements Serializable {
             return false;
         }
         return true;
+    }
+
+    public List<PessoaFisica> getDesejam() {
+        return desejam;
+    }
+
+    public void setDesejam(List<PessoaFisica> desejam) {
+        this.desejam = desejam;
     }
  
 }
